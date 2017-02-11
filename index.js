@@ -53,17 +53,38 @@ document.addEventListener('load', function(){
 
 });
 
-function createTable = function(element) {
+
+function createTable() {
+
 	//create the table
 	var gameTable = [];
 
-	//nested for loop to create a bidimennsional Array.
-	for(var i = 0; i < 8 ; i++) {
-		for(var j = 0; j < 14; j++) {
+	//Nested for loop to create a bidimennsional Array.
+	for(var i = 0; i < 14 ; i++) {
+	  gameTable[i] = [];
+		for(var j = 0; j < 8; j++) {
 			gameTable[i][j] = '0';
 		}
 	}
 	return gameTable;
+}
+
+function insertShapeInGameTable(gameTable, shape) {
+
+}
+
+function createSquare() {
+	var index = Math.floor(Math.random()*6);
+	var square = [];
+
+	for(var i = 0; i < 4; i++) {
+		square[i] = [];
+		for(var j = 0; j < 8; j++) {	
+				if(i > 1 && (j === index || j === index+1)) square[i][j] = '1'
+				else square[i][j] = '0'
+		}
+	}
+	return square;
 }
 
 
