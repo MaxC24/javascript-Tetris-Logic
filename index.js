@@ -27,21 +27,21 @@ moves downward
 
 random figures:
 
-[o,o],
-[o,o]
+[1,1],
+[1,1]
 
-[o],
-[o],
-[o],
-[o]
+[1],
+[1],
+[1],
+[1]
 
-[o, x, x],
-[o, o, o]
+[1, 0, 0],
+[1, 1, 1]
 
-[x, o, x],
-[o, o, o]
+[0, 1, 0],
+[1, 1, 1]
 
-when a line is complete replace it with array of x.
+when a line is complete replace it with array of 1.
 
 */
 
@@ -50,7 +50,6 @@ when a line is complete replace it with array of x.
 document.addEventListener('load', function(){
 
 	const gameElement = document.getElementById('game');
-
 
 });
 
@@ -66,4 +65,5 @@ function createTable = function(element) {
 	}
 	return gameTable;
 }
+
 
