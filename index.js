@@ -73,6 +73,8 @@ function insertShapeInGameTable(gameTable, shape) {
 
 }
 
+/* Create SHAPES! */ 
+
 function createSquare() {
 	//random index where to spawn the square:
 	var index = Math.floor(Math.random()*7);
@@ -101,11 +103,28 @@ function createLine() {
 	for(var i = 0; i < 4; i++) {
 		line[i] = [];
 		for(var j = 0; j < 8; j++) {	
-				if(j === index) line[i][j] = '1'
+				if(i > 0 && (j === index)) line[i][j] = '1'
 				else line[i][j] = '0'
 		}
 	}
 	return line;
+}
+
+function createElle() {
+	//random index where to spawn the elle:
+	var index = Math.floor(Math.random()*7);
+
+	//create elle represantation array;
+	var elle = [];
+
+	for(var i = 0; i < 4; i++) {
+		elle[i] = [];
+		for(var j = 0; j < 8; j++) {	
+				if(i > 0 && (j === index) || i === 3 && (j=== index + 1)) elle[i][j] = '1'
+				else elle[i][j] = '0'
+		}
+	}
+	return elle;
 }
 
 
