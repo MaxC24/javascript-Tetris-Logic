@@ -127,4 +127,21 @@ function createElle() {
 	return elle;
 }
 
+function createTriangle() {
+	//random index where to spawn the triangle:
+	var index = Math.floor(Math.random()*6) + 1;
+
+	//create triangle represantation array;
+	var triangle = [];
+
+	for(var i = 0; i < 4; i++) {
+		triangle[i] = [];
+		for(var j = 0; j < 8; j++) {	
+				if(i > 1 && (j === index) || i === 3 && ((j=== index + 1) || (j=== index - 1))) triangle[i][j] = '1'
+				else triangle[i][j] = '0'
+		}
+	}
+	return triangle;
+}
+
 
