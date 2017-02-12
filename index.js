@@ -47,6 +47,8 @@ when a line is complete replace it with array of 1.
 
 /* TETRISSSS */
 
+'use strict';
+
 document.addEventListener('load', function(){
 
 	const gameElement = document.getElementById('game');
@@ -69,8 +71,17 @@ function createTable() {
 	return gameTable;
 }
 
+//inserShapeInGameTable returns the shape coordinates:
 function insertShapeInGameTable(gameTable, shape) {
-
+	//Remove the first 4 arrays in the gameTable with the shape:
+	var coords = {};
+	for(var i = 0; i < 4; i++) {
+		//check if gameOver:
+		if(gameTable[i].indexOf('1') > -1) gameOver();
+		for(var j = 0; j < 8; j++) {
+			gameTable[i][j] = shape[i][j];
+		}
+	}
 }
 
 /* Create SHAPES! */ 
@@ -137,11 +148,27 @@ function createTriangle() {
 	for(var i = 0; i < 4; i++) {
 		triangle[i] = [];
 		for(var j = 0; j < 8; j++) {	
-				if(i > 1 && (j === index) || i === 3 && ((j=== index + 1) || (j=== index - 1))) triangle[i][j] = '1'
+				if(i > 1 && (j === index) || 
+				   i === 3 && ((j=== index + 1) || 
+				   (j=== index - 1))) triangle[i][j] = '1'
 				else triangle[i][j] = '0'
 		}
 	}
 	return triangle;
+}
+
+/* GAMES functions */
+
+function gamePause() {
+
+}
+
+function gameStart(gameTable) {
+
+}
+
+function gameOver() {
+	alert('You Lost!');
 }
 
 
