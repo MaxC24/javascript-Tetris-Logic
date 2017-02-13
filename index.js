@@ -86,9 +86,9 @@ function insertShapeInGameTable(gameTable, shape) {
 
 /* Create SHAPES! */ 
 
-function Shape(name) {
+function Shape(name, pos) {
 	this.name = name;
-	this.index = Math.floor(Math.random()*7);
+	this.index = Math.floor(Math.random()*pos);
 }
 
 Shape.prototype.move = function() {
@@ -98,83 +98,57 @@ Shape.prototype.move = function() {
 }
 
 function Square() {
-	// //random index where to spawn the square:
-	// var index = Math.floor(Math.random()*7);
-
-	// //create square represantation array;
-	// var square = [];
-
-	// for(var i = 0; i < 4; i++) {
-	// 	square[i] = [];
-	// 	for(var j = 0; j < 8; j++) {	
-	// 			if(i > 1 && (j === index || j === index+1)) square[i][j] = '1'
-	// 			else square[i][j] = '0'
-	// 	}
-	// }
-	// return square;
-
-	/* NEW IMPLEMENTATION */
-	Shape.call(this, 'square');
-
-	//save the coordinates 
+	Shape.call(this, 'square', 7);
+	//Square beginning coordinates
 	this.coords = [[2, this.index],[2, this.index+1], [3, this.index], [3, this.index+1]];
 }
 
-Square.prototype.move = function() {
+Square.prototype.rotate = function() {
 	this.coords = this.coords;
 }
 
-function createLine() {
-	//random index where to spawn the line:
-	var index = Math.floor(Math.random()*8);
-
-	//create line represantation array;
-	var line = [];
-
-	for(var i = 0; i < 4; i++) {
-		line[i] = [];
-		for(var j = 0; j < 8; j++) {	
-				if(i > 0 && (j === index)) line[i][j] = '1'
-				else line[i][j] = '0'
-		}
-	}
-	return line;
+function Line() {
+	Shape.call(this, 'line', 7);
+	//Line beginning coordinates
+	this.coords = [[1, this.index],[2, this.index], [3, this.index], [4, this.index]];
 }
 
-function createElle() {
-	//random index where to spawn the elle:
-	var index = Math.floor(Math.random()*7);
+Line.prototype.rotate = function() {
 
-	//create elle represantation array;
-	var elle = [];
-
-	for(var i = 0; i < 4; i++) {
-		elle[i] = [];
-		for(var j = 0; j < 8; j++) {	
-				if(i > 0 && (j === index) || i === 3 && (j=== index + 1)) elle[i][j] = '1'
-				else elle[i][j] = '0'
-		}
-	}
-	return elle;
 }
 
-function createTriangle() {
-	//random index where to spawn the triangle:
-	var index = Math.floor(Math.random()*6) + 1;
+function Elle() {
+	Shape.call(this.'Elle', 6);
+	//Elle beginning coordinates
+	this.coords = [[2, this.index], [3, this.index], [4, this.index],[4, this.index+1]];
+}
 
-	//create triangle represantation array;
-	var triangle = [];
+Elle.prototype.rotate = function() {
 
-	for(var i = 0; i < 4; i++) {
-		triangle[i] = [];
-		for(var j = 0; j < 8; j++) {	
-				if(i > 1 && (j === index) || 
-				   i === 3 && ((j=== index + 1) || 
-				   (j=== index - 1))) triangle[i][j] = '1'
-				else triangle[i][j] = '0'
-		}
-	}
-	return triangle;
+}
+
+
+
+function Triangle() {
+	// //random index where to spawn the triangle:
+	// var index = Math.floor(Math.random()*6) + 1;
+
+	// //create triangle represantation array;
+	// var triangle = [];
+
+	// for(var i = 0; i < 4; i++) {
+	// 	triangle[i] = [];
+	// 	for(var j = 0; j < 8; j++) {	
+	// 			if(i > 1 && (j === index) || 
+	// 			   i === 3 && ((j=== index + 1) || 
+	// 			   (j=== index - 1))) triangle[i][j] = '1'
+	// 			else triangle[i][j] = '0'
+	// 	}
+	// }
+	// return triangle;
+	Shape.call(this, 'triangle', 6);
+
+	this.coords = [[3, this.index+1], [4, this.index], [4, this.index+1],[4, this.index+2]];
 }
 
 /* GAMES functions */
