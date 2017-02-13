@@ -1,51 +1,4 @@
-/* [
-//hidden:
-[0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0],
-//end hidden
-[0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0]
-]
-
-create table first,
-create objects moving down one line at the second.
-<- onclick moves left
--> onclick moves right
-spacebar onclick rotates clockwise.
-
-moves downward
-
-random figures:
-
-[1,1],
-[1,1]
-
-[1],
-[1],
-[1],
-[1]
-
-[1, 0, 0],
-[1, 1, 1]
-
-[0, 1, 0],
-[1, 1, 1]
-
-when a line is complete replace it with array of 1.
-
-*/
-
-/* TETRISSSS */
+/* TETRISSSS in Javascript*/
 
 'use strict';
 
@@ -57,6 +10,25 @@ document.addEventListener('load', function(){
 
 
 function createTable() {
+	//Table Example:
+	/* [
+		//hidden:
+		[0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0],
+		//end hidden
+		[0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0]
+	] */
 
 	//create the table
 	var gameTable = [];
@@ -130,6 +102,7 @@ Line.prototype.rotate = function() {
 		// |    |    |  X  |    |
 	    //
 		// |    |    |  X  |    |
+		//Rotate line from right to down position:
 		case 'right':
 			var x = this.coords[2][0];
 			var y = this.coords[2][1];
@@ -152,10 +125,10 @@ Line.prototype.rotate = function() {
 			// |     |     |     |     |
 			//has the following coordinates: 
 			break;
+		//rotate the line from down to left:
 		case 'down':
 			var x = this.coords[1][0];
 			var y = this.coords[1][1];
-			if(x < )
 			var newXCoords = [x-2, x-1, x, x+1];
 			this.coords = this.coords.map(function(coord,i) {
 				return [newXCoords[i], y]
