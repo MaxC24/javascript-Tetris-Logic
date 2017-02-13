@@ -86,23 +86,43 @@ function insertShapeInGameTable(gameTable, shape) {
 
 /* Create SHAPES! */ 
 
-function createSquare() {
-	//random index where to spawn the square:
-	var index = Math.floor(Math.random()*7);
-
-	//create square represantation array;
-	var square = [];
-
-	for(var i = 0; i < 4; i++) {
-		square[i] = [];
-		for(var j = 0; j < 8; j++) {	
-				if(i > 1 && (j === index || j === index+1)) square[i][j] = '1'
-				else square[i][j] = '0'
-		}
-	}
-	return square;
+function Shape(name) {
+	this.name = name;
+	this.index = Math.floor(Math.random()*7);
 }
 
+Shape.prototype.move = function() {
+	this.coords = this.coords.map(function(c){
+		c[0] = c[0]++;
+	})
+}
+
+function Square() {
+	// //random index where to spawn the square:
+	// var index = Math.floor(Math.random()*7);
+
+	// //create square represantation array;
+	// var square = [];
+
+	// for(var i = 0; i < 4; i++) {
+	// 	square[i] = [];
+	// 	for(var j = 0; j < 8; j++) {	
+	// 			if(i > 1 && (j === index || j === index+1)) square[i][j] = '1'
+	// 			else square[i][j] = '0'
+	// 	}
+	// }
+	// return square;
+
+	/* NEW IMPLEMENTATION */
+	Shape.call(this, 'square');
+
+	//save the coordinates 
+	this.coords = [[2, this.index],[2, this.index+1], [3, this.index], [3, this.index+1]];
+}
+
+Square.prototype.move = function() {
+	this.coords = this.coords;
+}
 
 function createLine() {
 	//random index where to spawn the line:
