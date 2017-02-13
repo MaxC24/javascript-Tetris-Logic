@@ -111,9 +111,45 @@ function Line() {
 	Shape.call(this, 'line', 7);
 	//Line beginning coordinates
 	this.coords = [[1, this.index],[2, this.index], [3, this.index], [4, this.index]];
+	//The Line shape default position: right
+	this.position = 'right';
 }
 
+//Rotate function for Line Shape:
+	//The positions can be: up, right, down, left;
+	//example of right position and pivotal point(*):
+	// |    |    |  X  |    |
+    //
+	// |    |    |  X  |    |
+	//           *
+	// |    |    |  X  |    |
+    //
+	// |    |    |  X  |    |
+
 Line.prototype.rotate = function() {
+	swith(this.position) {
+		case 'right':
+			//rotating the line in 'down' position the element that remain is position
+			//has the following coordinates:
+			var x = this.coords[3][0];
+			var y = this.coords[3][1];
+			// it should be possible to rotate even if the line is on the far left or far right
+			//so in that case the pivotal point will change by 2 or 1 steps depending:
+			if(y < 2) y = 2;
+			if(y > 7) y = 7;
+			var newYCoords = [y-2, y-1, y, y+1];
+			this.coords = this.coords.map(function(coord, i) {
+				return [x, newCoords[i]];
+			})
+			this.position = 'down';
+			break;
+		case 'down':
+			break;
+		case 'left':
+			break;
+		case 'top':
+			break;
+	}
 
 }
 
@@ -128,27 +164,14 @@ Elle.prototype.rotate = function() {
 }
 
 
-
 function Triangle() {
-	// //random index where to spawn the triangle:
-	// var index = Math.floor(Math.random()*6) + 1;
-
-	// //create triangle represantation array;
-	// var triangle = [];
-
-	// for(var i = 0; i < 4; i++) {
-	// 	triangle[i] = [];
-	// 	for(var j = 0; j < 8; j++) {	
-	// 			if(i > 1 && (j === index) || 
-	// 			   i === 3 && ((j=== index + 1) || 
-	// 			   (j=== index - 1))) triangle[i][j] = '1'
-	// 			else triangle[i][j] = '0'
-	// 	}
-	// }
-	// return triangle;
 	Shape.call(this, 'triangle', 6);
-
+	//Triangle beginning coordinates
 	this.coords = [[3, this.index+1], [4, this.index], [4, this.index+1],[4, this.index+2]];
+}
+
+Triangle.prototype.rotate = function() {
+
 }
 
 /* GAMES functions */
