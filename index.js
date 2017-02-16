@@ -4,7 +4,7 @@
 
 document.addEventListener('load', function(){
 
-	const gameElement = document.getElementById('game');
+	var gameElement = document.getElementById('game');
 
 });
 
@@ -34,9 +34,9 @@ function createTable() {
 	var gameTable = [];
 
 	//Nested for loop to create a bidimennsional Array.
-	for(var i = 0; i < 14 ; i++) {
+	for(var i = 0; i < 22 ; i++) {
 	  gameTable[i] = [];
-		for(var j = 0; j < 8; j++) {
+		for(var j = 0; j < 10; j++) {
 			gameTable[i][j] = '0';
 		}
 	}
@@ -67,21 +67,21 @@ function Shape(name, pos) {
 Shape.prototype.move = function() {
 	this.coords = this.coords.map(function(c){
 		c[0] = c[0]++;
-	})
-}
+	});
+};
 
 function Square() {
-	Shape.call(this, 'square', 7);
+	Shape.call(this, 'square', 8);
 	//Square beginning coordinates
 	this.coords = [[2, this.index],[2, this.index+1], [3, this.index], [3, this.index+1]];
 }
 
 Square.prototype.rotate = function() {
 	this.coords = this.coords;
-}
+};
 
 function Line() {
-	Shape.call(this, 'line', 7);
+	Shape.call(this, 'line', 9);
 	//Line beginning coordinates
 	this.coords = [[0, this.index],[1, this.index], [2, this.index], [3, this.index]];
 	//The Line shape default position: right
@@ -91,6 +91,8 @@ function Line() {
 
 
 Line.prototype.rotate = function() {
+	//coordinates definition:
+	var y, x, newYCoords, newXCoords;
 	switch(this.position) {
 		//Rotate function for Line Shape:
 		//The positions can be: up, right, down, left;
@@ -104,16 +106,16 @@ Line.prototype.rotate = function() {
 		// |    |    |  X  |    |
 		//Rotate line from right to down position:
 		case 'right':
-			var x = this.coords[2][0];
-			var y = this.coords[2][1];
+			x = this.coords[2][0];
+			y = this.coords[2][1];
 			// it should be possible to rotate even if the line is on the far left or far right
 			//so in that case the pivotal point will change by 2 or 1 steps depending:
 			if(y < 2) y = 2;
-			if(y > 7) y = 7;
-			var newYCoords = [y-2, y-1, y, y+1];
+			if(y > 6) y = 6;
+			newYCoords = [y-2, y-1, y, y+1];
 			this.coords = this.coords.map(function(coord, i) {
 				return [x, newYCoords[i]];
-			})
+			});
 			this.position = 'down';
 		    //rotating the line in DOWN position from right:
 			// |     |     |     |     |
@@ -127,12 +129,14 @@ Line.prototype.rotate = function() {
 			break;
 		//rotate the line from down to left:
 		case 'down':
-			var x = this.coords[1][0];
-			var y = this.coords[1][1];
-			var newXCoords = [x-2, x-1, x, x+1];
+			x = this.coords[1][0];
+			y = this.coords[1][1];
+			if(x < 2) x = 2;
+			if(x > 8) x = 8;
+			newXCoords = [x-2, x-1, x, x+1];
 			this.coords = this.coords.map(function(coord,i) {
-				return [newXCoords[i], y]
-			})
+				return [newXCoords[i], y];
+			});
 			this.position = 'left';
 			//From down the Line rotate to a LEFT position:
 			// |    |  X  |    |    |
@@ -144,33 +148,62 @@ Line.prototype.rotate = function() {
 			// |    |  X  |    |    |
 			break;
 		case 'left':
+			x = this.coords[1][0];
+			y = this.coords[1][1];
+			if(y < 1) y = 1;
+			if(y > 5) y = 5;
+			newYCoords = [y-1, y, y+1, y+2];
+			this.coords = this.coords.map(function(coord, i){
+				return [x, newYCoords[i]];
+			});
+			this.position = 'up';
+			//From Left the Line rotate to a UP position:
+			// |     |     |     |     |
+		    //
+			// |  X  |  X  |  X  |  X  |
+			//             *
+			// |     |     |     |     |
+		    //
+			// |     |     |     |     |
+			break; 
+		//rotate the LINE back to the beginning RIGHT position:
+		case 'up':
+			x = this.coords[1][0];
+			y = this.coords[1][1];
+			if(x < 1) x = 1;
+			if(x > 7) x = 7;
+			newXCoords = [x-1, x, x+1, x+2];
+			this.coords = this.coords.map(function(coord, i){
+				return [newXCoords[i], y];
+			});
+			this.position = 'right';
 			break;
-		case 'top':
-			break;
+		default:
+
 	}
 
-}
+};
 
 function Elle() {
-	Shape.call(this, 'Elle', 6);
+	Shape.call(this, 'Elle', 8);
 	//Elle beginning coordinates
 	this.coords = [[2, this.index], [3, this.index], [4, this.index],[4, this.index+1]];
 }
 
 Elle.prototype.rotate = function() {
 
-}
+};
 
 
 function Triangle() {
-	Shape.call(this, 'triangle', 6);
+	Shape.call(this, 'triangle', 7);
 	//Triangle beginning coordinates
 	this.coords = [[3, this.index+1], [4, this.index], [4, this.index+1],[4, this.index+2]];
 }
 
 Triangle.prototype.rotate = function() {
 
-}
+};
 
 /* GAMES functions */
 
@@ -185,5 +218,4 @@ function gameStart(gameTable) {
 function gameOver() {
 	alert('You Lost!');
 }
-
 
