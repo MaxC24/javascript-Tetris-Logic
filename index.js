@@ -91,7 +91,7 @@ function Line() {
 
 
 Line.prototype.rotate = function() {
-	swith(this.position) {
+	switch(this.position) {
 		//Rotate function for Line Shape:
 		//The positions can be: up, right, down, left;
 		//this is the default RIGHT position and pivotal point(*):
@@ -152,7 +152,7 @@ Line.prototype.rotate = function() {
 }
 
 function Elle() {
-	Shape.call(this.'Elle', 6);
+	Shape.call(this, 'Elle', 6);
 	//Elle beginning coordinates
 	this.coords = [[2, this.index], [3, this.index], [4, this.index],[4, this.index+1]];
 }
