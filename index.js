@@ -189,10 +189,40 @@ function Elle() {
 	Shape.call(this, 'Elle', 8);
 	//Elle beginning coordinates
 	this.coords = [[2, this.index], [3, this.index], [4, this.index],[4, this.index+1]];
+	this.position = 'left';
 }
 
-Elle.prototype.rotate = function() {
 
+// ELLE ROTATION
+//   LEFT                      UP                         RIGHT                      DOWN
+//  |  x  |     |     |  //   |  x  |  x  |  x  |   //   |     |  x  |  x  |   //   |     |     |     | 
+//
+//  |  X  |  *  |     |  //   |  x  |  *  |     |   //   |     |  *  |  x  |   //   |     |  *  |  x  | 
+//             
+//  |  x  |  x  |     |  //   |     |     |     |   //   |     |     |  x  |   //   |  x  |  x  |  x  | 
+
+
+
+Elle.prototype.rotate = function() {
+	var x, y, newYCoords, newXCoords;
+	switch(this.position) {
+		case 'left':
+			x = this.coords[0][0];
+			y = this.coords[0][1];
+			if(y === 8) y = 7;
+			this.coords = [[x, y], [x, y+1], [x, y+2], [x+1, y]];
+			this.position = 'up';
+			break;
+		case 'up':
+			x = this.coords[1][0];
+			y = this.coords[1][1];
+			this.coords = [[x, y],[x, y+1],[x+1, y+1],[x+2, y+1]];
+			this.position = 'right';
+			break;
+		case 'right':
+			x = this.coords[3][0];
+			y = this.coords[3][1];
+	}
 };
 
 
