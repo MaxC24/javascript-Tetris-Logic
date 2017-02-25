@@ -6,6 +6,7 @@ document.addEventListener('load', function(){
 
 	var gameElement = document.getElementById('game');
 
+
 });
 
 
@@ -57,7 +58,7 @@ function insertShapeInGameTable(gameTable, shape) {
 	}
 }
 
-/* Create SHAPES! */ 
+/* SHAPES constructors */ 
 
 function Shape(name, pos) {
 	this.name = name;
@@ -179,7 +180,7 @@ Line.prototype.rotate = function() {
 			this.position = 'right';
 			break;
 		default:
-
+			this.coords = this.coords;
 	}
 
 };
