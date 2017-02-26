@@ -181,6 +181,7 @@ Line.prototype.rotate = function() {
 			break;
 		default:
 			this.coords = this.coords;
+			break;
 	}
 
 };
@@ -209,7 +210,7 @@ Elle.prototype.rotate = function() {
 		case 'left':
 			x = this.coords[0][0];
 			y = this.coords[0][1];
-			if(y === 8) y = 7;
+			if(y > 7) y = 7;
 			this.coords = [[x, y], [x, y+1], [x, y+2], [x+1, y]];
 			this.position = 'up';
 			break;
@@ -222,6 +223,18 @@ Elle.prototype.rotate = function() {
 		case 'right':
 			x = this.coords[3][0];
 			y = this.coords[3][1];
+			if(x < 2) x = 2;
+			this.coords = [[x-1, y],[x, y-2],[x, y-1],[x, y]];
+			this.position = 'down';
+			break;
+		case 'down':
+			x = this.coords[1][0];
+			y = this.coords[1][1];
+			this.coords = [[x-2, y],[x-1, y],[x, y],[x, y-1]];
+			break;
+		default:
+			this.coords = this.coords;
+			break;
 	}
 };
 
@@ -230,6 +243,7 @@ function Triangle() {
 	Shape.call(this, 'triangle', 7);
 	//Triangle beginning coordinates
 	this.coords = [[3, this.index+1], [4, this.index], [4, this.index+1],[4, this.index+2]];
+	this.position = 'down';
 }
 
 Triangle.prototype.rotate = function() {
