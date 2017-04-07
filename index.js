@@ -261,6 +261,6 @@ function gameStart(gameTable) {
 }
 
 function gameOver() {
-	alert('You Lost!');
+	return 'You lost';
 }
 
