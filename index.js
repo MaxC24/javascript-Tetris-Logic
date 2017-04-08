@@ -5,7 +5,7 @@
 document.addEventListener('load', function(){
 
 	var gameElement = document.getElementById('game');
-
+	// render the table on the page.
 
 });
 
@@ -52,7 +52,7 @@ function insertShapeInGameTable(gameTable, shape) {
 	for(var i = 0; i < 4; i++) {
 		//check if gameOver:
 		if(gameTable[i].indexOf('1') > -1) gameOver();
-		for(var j = 0; j < 8; j++) {
+		for(var j = 0; j < 10; j++) {
 			gameTable[i][j] = shape[i][j];
 		}
 	}
@@ -264,3 +264,27 @@ function gameOver() {
 	return 'You lost';
 }
 
+/* DOM function create a dom node table */
+
+//render the table on the DOM
+function renderDomTable(gameTable) {
+	var table = document.createElement("table");
+
+	gameTable.forEach(function(row) {
+		var currentRow = document.createElement('tr');
+		row.forEach(function(data) {
+			var currentData = document.createElement('td');
+			var text = document.createTextNode(data);
+			currentData.appendChild(text);
+			currentRow.appendChild(currentData);
+		});
+		table.appendChild(currentRow);
+	});
+
+
+	return table;
+}
+
+function updateDomTable(table, gameTable) {
+
+}
