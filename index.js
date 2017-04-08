@@ -2,10 +2,11 @@
 
 'use strict';
 
-document.addEventListener('load', function(){
+window.addEventListener('load', function(){
 
 	var gameElement = document.getElementById('game');
 	// render the table on the page.
+	gameElement.appendChild(renderDomTable(createTable()));
 
 });
 
