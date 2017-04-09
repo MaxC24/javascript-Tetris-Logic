@@ -48,6 +48,20 @@ Game.prototype.start = function(){
 	//if the user presses keys it should also force an update.
 };
 
+Game.prototype.updateTable = function() {
+	if(this.gameTable.currentShape) {
+		if(this.gameTable.isThereSpace){
+			this.gameTable.currentShape.move();
+			this.gameTable.removeOnes();
+			this.gameTable.drawCurrentShape();
+		} else {
+			this.gameTable.blockShape();
+		}
+	} else {
+		this.gameTable.insertShape(Dot);
+	}
+};
+
 /* TABLE functions */
 
 function Table() {
@@ -55,18 +69,6 @@ function Table() {
 	this.currentShape = null;
 }
 
-Table.prototype.update = function() {
-	if(this.currentShape) {
-		if(this.isThereSpace){
-			this.currentShape.move();
-			this.drawCurrentShape();
-		} else {
-			this.blockShape();
-		}
-	} else {
-		this.insertShape(Dot);
-	}
-};
 
 Table.prototype.updateDomTable = function(domTable) {
 
@@ -102,6 +104,16 @@ Table.prototype.isThereSpace = function() {
 		if(this.table[c[0]+1][c[1]] !== '0' && this.table[c[0]+1][c[1]] !== '1') return false;
 	}
 	return true;
+};
+
+Table.prototype.removeOnes = function(){
+	for(var i = 0; i < 22 ; i++) {
+		for(var j = 0; j < 10; j++) {
+			if(this.table[i][j] === '1'){
+				this.table[i][j] = '0';
+			}
+		}
+	}
 };
 
 
