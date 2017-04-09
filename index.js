@@ -6,15 +6,41 @@ window.addEventListener('load', function(){
 
 	var gameElement = document.getElementById('game');
 	// render the table on the page.
-	gameElement.appendChild(renderDomTable(createTable()));
+	gameElement.appendChild(createDomTable());
+
+	//create a set interval function that updates the game every second or so
 
 
 
 });
 
+/* DOM function create a dom node table */
+
+//render the table on the DOM, should render it once then only update it when necessary.
+function createDomTable() {
+	var table = document.createElement("table");
+
+	for(var i = 0; i < 22 ; i++) {
+	  	var currentRow = document.createElement('tr');
+		for(var j = 0; j < 10; j++) {
+			var currentData = document.createElement('td');
+			currentData.setAttribute('id', i+"-"+j);
+			var text = document.createTextNode('0');
+			currentData.appendChild(text);
+			currentRow.appendChild(currentData);
+		}
+		table.appendChild(currentRow);
+	}
+	return table;
+}
+
+function updateDomTable(table, gameTable) {
+
+}
 
 
-//NEEDS OOP REFACTORING
+
+//NEEDS OOP REFACTORING ( Maybe )
 function createTable() {
 	//Table Example:
 	/* [
@@ -285,27 +311,4 @@ function gameOver() {
 	return 'You lost';
 }
 
-/* DOM function create a dom node table */
 
-//render the table on the DOM
-function renderDomTable(gameTable) {
-	var table = document.createElement("table");
-
-	gameTable.forEach(function(row) {
-		var currentRow = document.createElement('tr');
-		row.forEach(function(data) {
-			var currentData = document.createElement('td');
-			var text = document.createTextNode(data);
-			currentData.appendChild(text);
-			currentRow.appendChild(currentData);
-		});
-		table.appendChild(currentRow);
-	});
-
-
-	return table;
-}
-
-function updateDomTable(table, gameTable) {
-
-}
