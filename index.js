@@ -48,6 +48,8 @@ Game.prototype.start = function(){
 	//if the user presses keys it should also force an update.
 };
 
+/* TABLE functions */
+
 function Table() {
 	this.table = createTable();
 	this.currentShape = null;
@@ -56,6 +58,7 @@ function Table() {
 Table.prototype.update = function() {
 	if(this.currentShape) {
 		this.currentShape.move();
+		this.drawCurrentShape();
 	} else {
 		this.insertShape(Dot);
 	}
@@ -68,15 +71,36 @@ Table.prototype.updateDomTable = function(domTable) {
 Table.prototype.insertShape = function(shape) {
 	this.currentShape = new shape();
 	//inserShapeInGameTable returns the shape coordinates:
+	this.drawCurrentShape();
+};
+
+Table.prototype.drawCurrentShape = function() {
 	this.currentShape.coords.forEach(function(c){
 		//change the 0 to 1 in the table where the shape is
 		this.table[c[0]][c[1]] = '1';
 	});
 };
 
+Table.prototype.blockShape = function() {
+	this.currentShape.coords.forEach(function(c){
+		//change the 0 to 1 in the table where the shape is
+		this.table[c[0]][c[1]] = 'x';
+	});
+};
+
+Table.prototype.isThereSpace = function() {
+	//if there is no space in the new position then blocks the shape
+	for(var i = 0; i < this.currentShape.coords.length; i++) {
+		var c = this.currentShape.coords[i];
+		if(this.table[c[0]][c[1]] !== '0') return false;
+	}
+	return true;
+};
 
 
-//NEEDS OOP REFACTORING ( Maybe )
+
+/*Table HELPER functions */
+
 function createTable() {
 	//create the table
 	var gameTable = [];
