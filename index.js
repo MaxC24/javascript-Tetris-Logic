@@ -9,10 +9,6 @@ window.addEventListener('load', function(){
 	var domTable = createDomTable();
 	gameElement.appendChild(domTable);
 
-
-
-
-
 });
 
 /* DOM FUNCTIONS */
@@ -41,7 +37,7 @@ function createDomTable() {
 /* GAMES functions */
 
 function Game(){
-	this.gameTable = createTable();
+	this.gameTable = new Table();
 	this.pause = false;
 	this.over = false;
 }
@@ -52,11 +48,20 @@ Game.prototype.start = function(){
 	//if the user presses keys it should also force an update.
 };
 
-Game.prototype.updateDomTable = function(domTable) {
+function Table() {
+	this.table = createTable();
+	this.currentShape = null;
+}
 
+Table.prototype.update = function() {
+	if(this.currentShape) {
+		this.currentShape.move();
+	} else {
+
+	}
 };
 
-Game.prototype.updateGameTable = function() {
+Table.prototype.updateDomTable = function(domTable) {
 
 };
 
@@ -64,10 +69,8 @@ Game.prototype.updateGameTable = function() {
 
 //NEEDS OOP REFACTORING ( Maybe )
 function createTable() {
-
 	//create the table
 	var gameTable = [];
-
 	//Nested for loop to create a bidimennsional Array.
 	for(var i = 0; i < 22 ; i++) {
 	  gameTable[i] = [];
