@@ -57,12 +57,21 @@ Table.prototype.update = function() {
 	if(this.currentShape) {
 		this.currentShape.move();
 	} else {
-
+		this.insertShape(Dot);
 	}
 };
 
 Table.prototype.updateDomTable = function(domTable) {
 
+};
+
+Table.prototype.insertShape = function(shape) {
+	this.currentShape = new shape();
+	//inserShapeInGameTable returns the shape coordinates:
+	this.currentShape.coords.forEach(function(c){
+		//change the 0 to 1 in the table where the shape is
+		this.table[c[0]][c[1]] = '1';
+	});
 };
 
 
@@ -79,17 +88,6 @@ function createTable() {
 		}
 	}
 	return gameTable;
-}
-
-//inserShapeInGameTable returns the shape coordinates:
-function insertShapeInGameTable(gameTable, shape) {
-	//insert the shape in the gameTable
-	//loop through the shape coords and get the shape coordinates
-	shape.coords.forEach(function(c){
-		//change the 0 to 1 in the table where the shape is
-		gameTable[c[0]][c[1]] = '1';
-	});
-
 }
 
 /* SHAPES constructors */ 
