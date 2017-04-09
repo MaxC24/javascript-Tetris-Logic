@@ -6,15 +6,16 @@ window.addEventListener('load', function(){
 
 	var gameElement = document.getElementById('game');
 	// render the table on the page.
-	gameElement.appendChild(createDomTable());
+	var domTable = createDomTable();
+	gameElement.appendChild(domTable);
 
-	//create a set interval function that updates the game every second or so
+
 
 
 
 });
 
-/* DOM function create a dom node table */
+/* DOM FUNCTIONS */
 
 //render the table on the DOM, should render it once then only update it when necessary.
 function createDomTable() {
@@ -34,43 +35,35 @@ function createDomTable() {
 	return table;
 }
 
-function updateDomTable(table, gameTable) {
 
+
+
+/* GAMES functions */
+
+function Game(){
+	this.gameTable = createTable();
+	this.pause = false;
+	this.over = false;
 }
+
+Game.prototype.start = function(){
+	//create a set interval function that updates the game 
+	//every second the shape has to move then the gameTable gets updated
+	//if the user presses keys it should also force an update.
+};
+
+Game.prototype.updateDomTable = function(domTable) {
+
+};
+
+Game.prototype.updateGameTable = function() {
+
+};
 
 
 
 //NEEDS OOP REFACTORING ( Maybe )
 function createTable() {
-	//Table Example:
-	/* [
-		//hidden:
-		[0,0,0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0,0,0],
-		//end hidden
-		[0,0,0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0],0,0,
-		[0,0,0,0,0,0,0,0],0,0,
-		[0,0,0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0],0,0,
-		[0,0,0,0,0,0,0,0],0,0,
-		[0,0,0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0,0,0]
-	] */
 
 	//create the table
 	var gameTable = [];
@@ -296,19 +289,3 @@ function Triangle() {
 Triangle.prototype.rotate = function() {
 
 };
-
-/* GAMES functions */
-
-function gamePause() {
-
-}
-
-function gameStart(gameTable) {
-
-}
-
-function gameOver() {
-	return 'You lost';
-}
-
-
