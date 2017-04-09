@@ -57,8 +57,12 @@ function Table() {
 
 Table.prototype.update = function() {
 	if(this.currentShape) {
-		this.currentShape.move();
-		this.drawCurrentShape();
+		if(this.isThereSpace){
+			this.currentShape.move();
+			this.drawCurrentShape();
+		} else {
+			this.blockShape();
+		}
 	} else {
 		this.insertShape(Dot);
 	}
@@ -86,13 +90,16 @@ Table.prototype.blockShape = function() {
 		//change the 0 to 1 in the table where the shape is
 		this.table[c[0]][c[1]] = 'x';
 	});
+	//remove current shape
+	this.currentShape = null;
 };
 
 Table.prototype.isThereSpace = function() {
-	//if there is no space in the new position then blocks the shape
+	//if there is no space in the next position then returns false
 	for(var i = 0; i < this.currentShape.coords.length; i++) {
 		var c = this.currentShape.coords[i];
-		if(this.table[c[0]][c[1]] !== '0') return false;
+		//checks if in the next row there is an 'x' or undefined
+		if(this.table[c[0]+1][c[1]] !== '0' && this.table[c[0]+1][c[1]] !== '1') return false;
 	}
 	return true;
 };
