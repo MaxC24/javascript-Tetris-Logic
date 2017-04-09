@@ -8,9 +8,13 @@ window.addEventListener('load', function(){
 	// render the table on the page.
 	gameElement.appendChild(renderDomTable(createTable()));
 
+
+
 });
 
 
+
+//NEEDS OOP REFACTORING
 function createTable() {
 	//Table Example:
 	/* [
@@ -61,7 +65,7 @@ function insertShapeInGameTable(gameTable, shape) {
 	//loop through the shape coords and get the shape coordinates
 	shape.coords.forEach(function(c){
 		//change the 0 to 1 in the table where the shape is
-		gameTable[c[0]] = gameTable[c[1]] = 1;
+		gameTable[c[0]][c[1]] = '1';
 	});
 
 }
@@ -78,6 +82,15 @@ Shape.prototype.move = function() {
 		c[0] = c[0]++;
 	});
 };
+
+/* CREATE A DOT Object shape for debugging */
+
+function Dot() {
+	Shape.call(this, 'dot', 10);
+	this.coords = [[3, this.index]];
+}
+
+/* END OF DOT */
 
 function Square() {
 	Shape.call(this, 'square', 8);
