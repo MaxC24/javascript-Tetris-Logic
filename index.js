@@ -15,21 +15,31 @@ function createTable() {
 	//Table Example:
 	/* [
 		//hidden:
-		[0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0],
 		//end hidden
-		[0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0]
+		[0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0],0,0,
+		[0,0,0,0,0,0,0,0],0,0,
+		[0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0],0,0,
+		[0,0,0,0,0,0,0,0],0,0,
+		[0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0]
 	] */
 
 	//create the table
@@ -46,17 +56,14 @@ function createTable() {
 }
 
 //inserShapeInGameTable returns the shape coordinates:
-//NEED TO REFACTOR AS SHAPE IS CHANGED!!!!!!!!!!!!!!!!!!!!!!
 function insertShapeInGameTable(gameTable, shape) {
-	//Remove the first 4 arrays in the gameTable with the shape:
-	var coords = {};
-	for(var i = 0; i < 4; i++) {
-		//check if gameOver:
-		if(gameTable[i].indexOf('1') > -1) gameOver();
-		for(var j = 0; j < 10; j++) {
-			gameTable[i][j] = shape[i][j];
-		}
-	}
+	//insert the shape in the gameTable
+	//loop through the shape coords and get the shape coordinates
+	shape.coords.forEach(function(c){
+		//change the 0 to 1 in the table where the shape is
+		gameTable[c[0]] = gameTable[c[1]] = 1;
+	});
+
 }
 
 /* SHAPES constructors */ 
@@ -190,7 +197,7 @@ Line.prototype.rotate = function() {
 function Elle() {
 	Shape.call(this, 'Elle', 8);
 	//Elle beginning coordinates
-	this.coords = [[2, this.index], [3, this.index], [4, this.index],[4, this.index+1]];
+	this.coords = [[1, this.index], [2, this.index], [3, this.index],[3, this.index+1]];
 	this.position = 'left';
 }
 
