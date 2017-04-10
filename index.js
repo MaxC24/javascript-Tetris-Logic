@@ -28,12 +28,13 @@ Game.prototype.start = function(){
 	//if the user presses keys it should also force an update.
 };
 
-Game.prototype.updateGameTable = function() {
+Game.prototype.updateGameDomTable = function() {
 	if(this.gameTable.currentShape) {
 		if(this.gameTable.isThereSpace){
 			this.gameTable.currentShape.move();
 			this.gameTable.removeOnes();
 			this.gameTable.drawCurrentShape();
+			this.gameTable.updateDomTable(this.domTable);
 		} else {
 			this.gameTable.freezeShape();
 		}
@@ -68,7 +69,13 @@ function Table() {
 
 
 Table.prototype.updateDomTable = function(domTable) {
-
+	//unmemoized solution for now.
+	for(var i = 0; i < 22, i++) {
+		for(var j = 0; j < 10; j++){
+			var currentNode = document.getElementById(i + '-' + j);
+			currentNode.innerText = this.table[i][j];
+		}
+	}
 };
 
 Table.prototype.insertShape = function(shape) {
