@@ -9,6 +9,10 @@ window.addEventListener('load', function(){
 	var newGame = new Game();
 	var domTable = newGame.domTable;
 	gameElement.appendChild(domTable);
+	
+	setInterval(function(){
+		newGame.updateGameDomTable();
+	}, 1000);
 
 });
 
@@ -29,6 +33,7 @@ Game.prototype.start = function(){
 };
 
 Game.prototype.updateGameDomTable = function() {
+	console.log(this.gameTable);
 	if(this.gameTable.currentShape) {
 		if(this.gameTable.isThereSpace){
 			this.gameTable.currentShape.move();
@@ -37,9 +42,11 @@ Game.prototype.updateGameDomTable = function() {
 			this.gameTable.updateDomTable(this.domTable);
 		} else {
 			this.gameTable.freezeShape();
+			this.gameTable.updateDomTable(this.domTable);
 		}
 	} else {
 		this.gameTable.insertShape(Dot);
+		this.gameTable.updateDomTable(this.domTable);
 	}
 };
 
@@ -70,7 +77,7 @@ function Table() {
 
 Table.prototype.updateDomTable = function(domTable) {
 	//unmemoized solution for now.
-	for(var i = 0; i < 22, i++) {
+	for(var i = 0; i < 22; i++) {
 		for(var j = 0; j < 10; j++){
 			var currentNode = document.getElementById(i + '-' + j);
 			currentNode.innerText = this.table[i][j];
@@ -85,9 +92,10 @@ Table.prototype.insertShape = function(shape) {
 };
 
 Table.prototype.drawCurrentShape = function() {
+	var self = this;
 	this.currentShape.coords.forEach(function(c){
 		//change the 0 to 1 in the table where the shape is
-		this.table[c[0]][c[1]] = '1';
+		self.table[c[0]][c[1]] = '1';
 	});
 };
 
