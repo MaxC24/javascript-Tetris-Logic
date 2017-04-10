@@ -36,6 +36,7 @@ Game.prototype.updateGameDomTable = function() {
 	console.log(this.gameTable);
 	if(this.gameTable.currentShape) {
 		if(this.gameTable.isThereSpace){
+			console.log(this.gameTable.currentShape);
 			this.gameTable.currentShape.move();
 			this.gameTable.removeOnes();
 			this.gameTable.drawCurrentShape();
@@ -177,6 +178,9 @@ function Dot() {
 	this.coords = [[3, this.index]];
 }
 
+Dot.prototype = Object.create(Shape.prototype);
+Dot.prototype.constructor = Dot;
+
 /* END OF DOT */
 
 function Square() {
@@ -184,6 +188,9 @@ function Square() {
 	//Square beginning coordinates
 	this.coords = [[2, this.index],[2, this.index+1], [3, this.index], [3, this.index+1]];
 }
+
+Square.prototype = Object.create(Shape.prototype);
+Square.prototype.constructor = Square;
 
 Square.prototype.rotate = function() {
 	this.coords = this.coords;
