@@ -6,32 +6,11 @@ window.addEventListener('load', function(){
 
 	var gameElement = document.getElementById('game');
 	// render the table on the page.
-	var domTable = createDomTable();
+	var newGame = new Game();
+	var domTable = newGame.createDomTable();
 	gameElement.appendChild(domTable);
 
 });
-
-/* DOM FUNCTIONS */
-
-//render the table on the DOM, should render it once then only update it when necessary.
-function createDomTable() {
-	var table = document.createElement("table");
-
-	for(var i = 0; i < 22 ; i++) {
-	  	var currentRow = document.createElement('tr');
-		for(var j = 0; j < 10; j++) {
-			var currentData = document.createElement('td');
-			currentData.setAttribute('id', i+"-"+j);
-			var text = document.createTextNode('0');
-			currentData.appendChild(text);
-			currentRow.appendChild(currentData);
-		}
-		table.appendChild(currentRow);
-	}
-	return table;
-}
-
-
 
 
 /* GAMES functions */
@@ -48,18 +27,35 @@ Game.prototype.start = function(){
 	//if the user presses keys it should also force an update.
 };
 
-Game.prototype.updateTable = function() {
+Game.prototype.updateGameTable = function() {
 	if(this.gameTable.currentShape) {
 		if(this.gameTable.isThereSpace){
 			this.gameTable.currentShape.move();
 			this.gameTable.removeOnes();
 			this.gameTable.drawCurrentShape();
 		} else {
-			this.gameTable.blockShape();
+			this.gameTable.freezeShape();
 		}
 	} else {
 		this.gameTable.insertShape(Dot);
 	}
+};
+
+Game.prototype.createDomTable = function() {
+	var table = document.createElement("table");
+
+	for(var i = 0; i < 22 ; i++) {
+	  	var currentRow = document.createElement('tr');
+		for(var j = 0; j < 10; j++) {
+			var currentData = document.createElement('td');
+			currentData.setAttribute('id', i+"-"+j);
+			var text = document.createTextNode('0');
+			currentData.appendChild(text);
+			currentRow.appendChild(currentData);
+		}
+		table.appendChild(currentRow);
+	}
+	return table;
 };
 
 /* TABLE functions */
@@ -87,7 +83,7 @@ Table.prototype.drawCurrentShape = function() {
 	});
 };
 
-Table.prototype.blockShape = function() {
+Table.prototype.freezeShape = function() {
 	this.currentShape.coords.forEach(function(c){
 		//change the 0 to 1 in the table where the shape is
 		this.table[c[0]][c[1]] = 'x';
