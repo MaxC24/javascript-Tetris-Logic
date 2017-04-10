@@ -33,10 +33,8 @@ Game.prototype.start = function(){
 };
 
 Game.prototype.updateGameDomTable = function() {
-	console.log(this.gameTable);
 	if(this.gameTable.currentShape) {
 		if(this.gameTable.isThereSpace){
-			console.log(this.gameTable.currentShape);
 			this.gameTable.currentShape.move();
 			this.gameTable.removeOnes();
 			this.gameTable.drawCurrentShape();
@@ -154,9 +152,9 @@ function Shape(name, pos) {
 }
 
 Shape.prototype.move = function() {
-	this.coords = this.coords.map(function(c){
-		c[0] = c[0]++;
-	});
+	for(var i = 0; i < this.coords.length; i++) {
+		this.coords[i][0] = this.coords[i][0]+1;
+	}
 };
 
 Shape.prototype.moveRight = function() {
