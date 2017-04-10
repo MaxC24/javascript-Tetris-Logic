@@ -7,7 +7,7 @@ window.addEventListener('load', function(){
 	var gameElement = document.getElementById('game');
 	// render the table on the page.
 	var newGame = new Game();
-	var domTable = newGame.createDomTable();
+	var domTable = newGame.domTable;
 	gameElement.appendChild(domTable);
 
 });
@@ -17,6 +17,7 @@ window.addEventListener('load', function(){
 
 function Game(){
 	this.gameTable = new Table();
+	this.domTable = this.createDomTable();
 	this.pause = false;
 	this.over = false;
 }
@@ -139,6 +140,18 @@ function Shape(name, pos) {
 Shape.prototype.move = function() {
 	this.coords = this.coords.map(function(c){
 		c[0] = c[0]++;
+	});
+};
+
+Shape.prototype.moveRight = function() {
+	this.coords = this.coords.map(function(c){
+		c[1] = c[1]++;
+	});
+};
+
+Shape.prototype.moveLeft = function() {
+	this.coords = this.coords.map(function(c){
+		c[1] = c[1]--;
 	});
 };
 
