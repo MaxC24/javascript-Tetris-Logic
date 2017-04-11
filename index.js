@@ -14,11 +14,12 @@ window.addEventListener('load', function(){
 		if(!newGame.pause && !newGame.over) {
 			newGame.updateGameDomTable();
 		}
-	}, 100);
+	}, 1000);
 
 	//Player key events
 
 	window.addEventListener('keydown', function(e) {
+		e.preventDefault();
 		//Game controls
 		if(e.key === "p") {
 			newGame.pause = !newGame.pause;
@@ -27,9 +28,12 @@ window.addEventListener('load', function(){
 		//Shape moving controls
 		var shape = newGame.gameTable.currentShape;
 		if(shape){
-			if(e.key === "ArrowLeft") shape.moveLeft();
-			if(e.key === "ArrowRight") shape.moveRight();
-			if(e.key === "ArrowDown") shape.move();
+			if(e.key === "ArrowLeft" && newGame.gameTable.isThereSpaceLeft()) shape.moveLeft();
+			if(e.key === "ArrowRight" && newGame.gameTable.isThereSpaceRight()) {
+				console.log(newGame.gameTable.isThereSpaceRight());
+				shape.moveRight();
+			}
+			if(e.key === "ArrowDown" && newGame.gameTable.isThereSpaceDown()) shape.move();
 		}
 	});	
 
@@ -53,7 +57,7 @@ Game.prototype.start = function(){
 
 Game.prototype.updateGameDomTable = function() {
 	if(this.gameTable.currentShape) {
-		if(this.gameTable.isThereSpace()){
+		if(this.gameTable.isThereSpaceDown()){
 			this.gameTable.currentShape.move();
 			this.gameTable.removeOnes();
 			this.gameTable.drawCurrentShape();
@@ -128,12 +132,33 @@ Table.prototype.freezeShape = function() {
 	this.currentShape = null;
 };
 
-Table.prototype.isThereSpace = function() {
+Table.prototype.isThereSpaceDown = function() {
 	//if there is no space in the next position then returns false
 	for(var i = 0; i < this.currentShape.coords.length; i++) {
 		var c = this.currentShape.coords[i];
 		//checks if in the next row there is an 'x' or undefined
-		if(this.table[c[0]+1] === undefined || ( this.table[c[0]+1][c[1]] !== '0' && this.table[c[0]+1][c[1]] !== '1')) return false;
+		if(this.table[c[0]+1] === undefined || this.table[c[0]+1][c[1]] === 'x') return false;
+	}
+	return true;
+};
+
+Table.prototype.isThereSpaceLeft = function() {
+	//if there is no space in the next position then returns false
+	for(var i = 0; i < this.currentShape.coords.length; i++) {
+		var c = this.currentShape.coords[i];
+		//checks if in the next row there is an 'x' or undefined
+		if(this.table[c[0]][c[1]-1] === undefined || this.table[c[0]][c[1]-1] === 'x') return false;
+	}
+	return true;
+};
+
+Table.prototype.isThereSpaceRight = function() {
+	//if there is no space in the next position then returns false
+	for(var i = 0; i < this.currentShape.coords.length; i++) {
+		var c = this.currentShape.coords[i];
+		//checks if in the next row there is an 'x' or undefined
+		console.log(this.table[c[0]][c[1]+1])
+		if(this.table[c[0]][c[1]+1] === undefined || this.table[c[0]][c[1]+1] === 'x') return false;
 	}
 	return true;
 };
