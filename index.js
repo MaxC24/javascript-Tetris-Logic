@@ -10,9 +10,30 @@ window.addEventListener('load', function(){
 	var domTable = newGame.domTable;
 	gameElement.appendChild(domTable);
 	
-	setInterval(function(){
-		newGame.updateGameDomTable();
+	var setIntervalID = setInterval(function(){
+		if(!newGame.pause && !newGame.over) {
+			newGame.updateGameDomTable();
+		}
 	}, 100);
+
+	//Player key events
+
+	window.addEventListener('keydown', function(e) {
+		//Game controls
+		if(e.key === "p") {
+			console.log('I should pause the game ', newGame.pause);
+			newGame.pause = !newGame.pause;
+		}
+		console.log(e);
+
+		//Shape moving controls
+		var shape = newGame.gameTable.currentShape;
+		if(shape){
+			if(e.key === "ArrowLeft") shape.moveLeft();
+			if(e.key === "ArrowRight") shape.moveRight();
+			if(e.key === "ArrowDown") shape.move();
+		}
+	});	
 
 });
 
@@ -131,10 +152,10 @@ Table.prototype.removeOnes = function(){
 
 Table.prototype.checkWinAndClean = function() {
 	while(this.table[21].join('') === 'xxxxxxxxxx'){
-		// we splice the array to remove the completed rows
+		// we pop the array to remove the completed row
 		this.table.pop();
-		this.table.splice(4, 0,  ['0','0','0','0','0','0','0','0','0','0']);
 		// we splice again to insert empty rows at the beginning of the game.
+		this.table.splice(4, 0,  ['0','0','0','0','0','0','0','0','0','0']);
 	}
 };
 
@@ -169,15 +190,15 @@ Shape.prototype.move = function() {
 };
 
 Shape.prototype.moveRight = function() {
-	this.coords = this.coords.map(function(c){
-		c[1] = c[1]++;
-	});
+	for(var i = 0; i < this.coords.length; i++) {
+		this.coords[i][1] = this.coords[i][1]+1;
+	}
 };
 
 Shape.prototype.moveLeft = function() {
-	this.coords = this.coords.map(function(c){
-		c[1] = c[1]--;
-	});
+	for(var i = 0; i < this.coords.length; i++) {
+		this.coords[i][1] = this.coords[i][1]-1;
+	}
 };
 
 /* CREATE A DOT Object shape for debugging */
