@@ -14,7 +14,7 @@ window.addEventListener('load', function(){
 		if(!newGame.pause && !newGame.over) {
 			newGame.updateGameDomTable();
 		}
-	}, 1000);
+	}, 100);
 
 	//Player key events
 
@@ -34,6 +34,7 @@ window.addEventListener('load', function(){
 				shape.moveRight();
 			}
 			if(e.key === "ArrowDown" && newGame.gameTable.isThereSpaceDown()) shape.move();
+			if(shape.rotate && e.key === 'r') shape.rotate();
 		}
 	});	
 
@@ -68,7 +69,7 @@ Game.prototype.updateGameDomTable = function() {
 			this.gameTable.updateDomTable(this.domTable);
 		}
 	} else {
-		this.gameTable.insertShape(Dot);
+		this.gameTable.insertShape(Elle);
 		this.gameTable.updateDomTable(this.domTable);
 	}
 };
@@ -361,6 +362,8 @@ function Elle() {
 	this.position = 'left';
 }
 
+Elle.prototype = Object.create(Shape.prototype);
+Elle.prototype.constructor = Dot;
 
 // ELLE ROTATION
 //   LEFT                      UP                         RIGHT                      DOWN
