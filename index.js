@@ -12,7 +12,7 @@ window.addEventListener('load', function(){
 	
 	setInterval(function(){
 		newGame.updateGameDomTable();
-	}, 1000);
+	}, 200);
 
 });
 
@@ -34,7 +34,7 @@ Game.prototype.start = function(){
 
 Game.prototype.updateGameDomTable = function() {
 	if(this.gameTable.currentShape) {
-		if(this.gameTable.isThereSpace){
+		if(this.gameTable.isThereSpace()){
 			this.gameTable.currentShape.move();
 			this.gameTable.removeOnes();
 			this.gameTable.drawCurrentShape();
@@ -99,9 +99,10 @@ Table.prototype.drawCurrentShape = function() {
 };
 
 Table.prototype.freezeShape = function() {
+	var self = this;
 	this.currentShape.coords.forEach(function(c){
 		//change the 0 to 1 in the table where the shape is
-		this.table[c[0]][c[1]] = 'x';
+		self.table[c[0]][c[1]] = 'x';
 	});
 	//remove current shape
 	this.currentShape = null;
@@ -112,7 +113,7 @@ Table.prototype.isThereSpace = function() {
 	for(var i = 0; i < this.currentShape.coords.length; i++) {
 		var c = this.currentShape.coords[i];
 		//checks if in the next row there is an 'x' or undefined
-		if(this.table[c[0]+1][c[1]] !== '0' && this.table[c[0]+1][c[1]] !== '1') return false;
+		if(this.table[c[0]+1] === undefined || ( this.table[c[0]+1][c[1]] !== '0' && this.table[c[0]+1][c[1]] !== '1')) return false;
 	}
 	return true;
 };
