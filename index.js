@@ -21,10 +21,8 @@ window.addEventListener('load', function(){
 	window.addEventListener('keydown', function(e) {
 		//Game controls
 		if(e.key === "p") {
-			console.log('I should pause the game ', newGame.pause);
 			newGame.pause = !newGame.pause;
 		}
-		console.log(e);
 
 		//Shape moving controls
 		var shape = newGame.gameTable.currentShape;
