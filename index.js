@@ -12,7 +12,7 @@ window.addEventListener('load', function(){
 	
 	setInterval(function(){
 		newGame.updateGameDomTable();
-	}, 200);
+	}, 100);
 
 });
 
@@ -41,6 +41,7 @@ Game.prototype.updateGameDomTable = function() {
 			this.gameTable.updateDomTable(this.domTable);
 		} else {
 			this.gameTable.freezeShape();
+			this.gameTable.checkWinAndClean();
 			this.gameTable.updateDomTable(this.domTable);
 		}
 	} else {
@@ -125,6 +126,15 @@ Table.prototype.removeOnes = function(){
 				this.table[i][j] = '0';
 			}
 		}
+	}
+};
+
+Table.prototype.checkWinAndClean = function() {
+	while(this.table[21].join('') === 'xxxxxxxxxx'){
+		// we splice the array to remove the completed rows
+		this.table.pop();
+		this.table.splice(4, 0,  ['0','0','0','0','0','0','0','0','0','0']);
+		// we splice again to insert empty rows at the beginning of the game.
 	}
 };
 
