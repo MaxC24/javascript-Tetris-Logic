@@ -181,7 +181,6 @@ Table.prototype.isThereSpaceRight = function() {
 	for(var i = 0; i < this.currentShape.coords.length; i++) {
 		var c = this.currentShape.coords[i];
 		//checks if in the next row there is an 'x' or undefined
-		console.log(this.table[c[0]][c[1]+1])
 		if(this.table[c[0]][c[1]+1] === undefined || this.table[c[0]][c[1]+1] === 'x') return false;
 	}
 	return true;
