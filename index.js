@@ -126,8 +126,14 @@ Table.prototype.updateDomTable = function(domTable) {
 	this.drawCurrentShape();
 };
 
-Table.prototype.insertShape = function(shape) {
-	this.currentShape = new shape();
+Table.prototype.insertShape = function() {
+
+	//create an array with all the shape constructors
+	var shapes = [Square, Line, Elle, Dot];
+
+	//Select it randomly
+	var r = Math.floor(Math.random()*4);
+	this.currentShape = new shapes[r]();
 	//inserShapeInGameTable returns the shape coordinates:
 	this.drawCurrentShape();
 };
