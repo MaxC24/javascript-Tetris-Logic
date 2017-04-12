@@ -9,17 +9,26 @@ window.addEventListener('load', function(){
 	var newGame = new Game();
 	var domTable = newGame.domTable;
 	gameElement.appendChild(domTable);
-	
-	var setIntervalID = setInterval(function(){
-		if(!newGame.pause && !newGame.over) {
+
+	//use requestAnimationFrame to set a smooth 60fs gameplay:
+	//setup variables
+	var now = new Date().getTime();
+	var speed = 1000;
+
+	function tick() {
+		requestAnimationFrame(tick);
+		if(!newGame.pause && !newGame.over && (now+speed) <= new Date().getTime()) {
+			newGame.moveShape();
 			newGame.updateGameDomTable();
+			speed -= 1;
+			now = new Date().getTime();
 		}
-	}, 1000);
+		newGame.updateGameDomTable();
+	}
 
 	//Player key events
 
 	window.addEventListener('keydown', function(e) {
-		e.preventDefault();
 		//Game controls
 		if(e.key === "p") {
 			newGame.pause = !newGame.pause;
@@ -34,6 +43,9 @@ window.addEventListener('load', function(){
 			if(shape.rotate && e.key === 'r') shape.rotate();
 		}
 	});	
+
+	//run the tick function:
+	tick();
 
 });
 
@@ -56,7 +68,7 @@ Game.prototype.start = function(){
 Game.prototype.updateGameDomTable = function() {
 	if(this.gameTable.currentShape) {
 		if(this.gameTable.isThereSpaceDown()){
-			this.gameTable.currentShape.move();
+			//this.gameTable.currentShape.move();
 			this.gameTable.removeOnes();
 			this.gameTable.drawCurrentShape();
 			this.gameTable.updateDomTable(this.domTable);
@@ -68,6 +80,12 @@ Game.prototype.updateGameDomTable = function() {
 	} else {
 		this.gameTable.insertShape(Elle);
 		this.gameTable.updateDomTable(this.domTable);
+	}
+};
+
+Game.prototype.moveShape = function() {
+	if(this.gameTable.currentShape && this.gameTable.isThereSpaceDown()){
+		this.gameTable.currentShape.move();
 	}
 };
 
@@ -104,6 +122,8 @@ Table.prototype.updateDomTable = function(domTable) {
 			currentNode.innerText = this.table[i][j];
 		}
 	}
+	this.removeOnes();
+	this.drawCurrentShape();
 };
 
 Table.prototype.insertShape = function(shape) {
