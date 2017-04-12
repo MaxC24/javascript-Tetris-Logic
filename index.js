@@ -13,7 +13,7 @@ window.addEventListener('load', function(){
 	//use requestAnimationFrame to set a smooth 60fs gameplay:
 	//setup variables
 	var now = new Date().getTime();
-	var speed = 1000;
+	var speed = 500;
 
 	function tick() {
 		requestAnimationFrame(tick);
@@ -44,7 +44,7 @@ window.addEventListener('load', function(){
 		}
 	});	
 
-	//run the tick function:
+	//RUN the tick function:
 	tick();
 
 });
@@ -133,7 +133,8 @@ Table.prototype.insertShape = function() {
 
 	//Select it randomly
 	var r = Math.floor(Math.random()*4);
-	this.currentShape = new shapes[r]();
+	// this.currentShape = new shapes[r]();
+	this.currentShape = new Line();
 	//inserShapeInGameTable returns the shape coordinates:
 	this.drawCurrentShape();
 };
@@ -196,12 +197,14 @@ Table.prototype.removeOnes = function(){
 	}
 };
 
+
+
 Table.prototype.checkWinAndClean = function() {
-	while(this.table[21].join('') === 'xxxxxxxxxx'){
-		// we pop the array to remove the completed row
-		this.table.pop();
-		// we splice again to insert empty rows at the beginning of the game.
-		this.table.splice(4, 0,  ['0','0','0','0','0','0','0','0','0','0']);
+	for(var i = 0; i< 22; i++) {
+		if(this.table[i].join('') === 'xxxxxxxxxx') {
+			this.table.splice(i, 1);
+			this.table.unshift(['0','0','0','0','0','0','0','0','0','0']);
+		}
 	}
 };
 
