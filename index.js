@@ -14,7 +14,7 @@ window.addEventListener('load', function(){
 		if(!newGame.pause && !newGame.over) {
 			newGame.updateGameDomTable();
 		}
-	}, 100);
+	}, 1000);
 
 	//Player key events
 
@@ -29,10 +29,7 @@ window.addEventListener('load', function(){
 		var shape = newGame.gameTable.currentShape;
 		if(shape){
 			if(e.key === "ArrowLeft" && newGame.gameTable.isThereSpaceLeft()) shape.moveLeft();
-			if(e.key === "ArrowRight" && newGame.gameTable.isThereSpaceRight()) {
-				console.log(newGame.gameTable.isThereSpaceRight());
-				shape.moveRight();
-			}
+			if(e.key === "ArrowRight" && newGame.gameTable.isThereSpaceRight()) shape.moveRight();
 			if(e.key === "ArrowDown" && newGame.gameTable.isThereSpaceDown()) shape.move();
 			if(shape.rotate && e.key === 'r') shape.rotate();
 		}
@@ -258,6 +255,9 @@ function Line() {
 	this.position = 'right';
 }
 
+Line.prototype = Object.create(Shape.prototype);
+Line.prototype.constructor = Line;
+
 
 
 Line.prototype.rotate = function() {
@@ -363,7 +363,7 @@ function Elle() {
 }
 
 Elle.prototype = Object.create(Shape.prototype);
-Elle.prototype.constructor = Dot;
+Elle.prototype.constructor = Elle;
 
 // ELLE ROTATION
 //   LEFT                      UP                         RIGHT                      DOWN
