@@ -74,7 +74,6 @@ Game.prototype.updateGameDomTable = function() {
 		} else {
 			this.gameTable.freezeShape();
 			this.over = this.gameTable.checkGameOver();
-			console.log(this.over);
 			this.gameTable.checkWinAndClean();
 			this.gameTable.updateDomTable(this.domTable);
 		}
