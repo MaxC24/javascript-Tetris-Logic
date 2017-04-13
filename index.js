@@ -68,7 +68,6 @@ Game.prototype.start = function(){
 Game.prototype.updateGameDomTable = function() {
 	if(this.gameTable.currentShape) {
 		if(this.gameTable.isThereSpaceDown()){
-			//this.gameTable.currentShape.move();
 			this.gameTable.removeOnes();
 			this.gameTable.drawCurrentShape();
 			this.gameTable.updateDomTable(this.domTable);
@@ -122,8 +121,8 @@ Table.prototype.updateDomTable = function(domTable) {
 			currentNode.innerText = this.table[i][j];
 		}
 	}
-	this.removeOnes();
-	this.drawCurrentShape();
+	// this.removeOnes();
+	// this.drawCurrentShape();
 };
 
 Table.prototype.insertShape = function() {
@@ -135,7 +134,6 @@ Table.prototype.insertShape = function() {
 	var r = Math.floor(Math.random()*4);
 	// this.currentShape = new shapes[r]();
 	this.currentShape = new Line();
-	//inserShapeInGameTable returns the shape coordinates:
 	this.drawCurrentShape();
 };
 
