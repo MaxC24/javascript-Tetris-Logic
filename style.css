@@ -1,0 +1,24 @@
+table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid white;
+}
+
+td {
+	width: 1em;
+	height: 1em;
+}
+
+.red {
+	background-color: red;
+}
+
+.lg {
+	background-color: lightgrey;
+}
+
+.grey {
+	background-color: grey;
+}
