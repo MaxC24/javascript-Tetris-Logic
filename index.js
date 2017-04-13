@@ -91,7 +91,7 @@ Game.prototype.moveShape = function() {
 Game.prototype.createDomTable = function() {
 	var table = document.createElement("table");
 
-	for(var i = 0; i < 22 ; i++) {
+	for(var i = 4; i < 22 ; i++) {
 	  	var currentRow = document.createElement('tr');
 		for(var j = 0; j < 10; j++) {
 			var currentData = document.createElement('td');
@@ -115,14 +115,12 @@ function Table() {
 
 Table.prototype.updateDomTable = function(domTable) {
 	//unmemoized solution for now.
-	for(var i = 0; i < 22; i++) {
+	for(var i = 4; i < 22; i++) {
 		for(var j = 0; j < 10; j++){
 			var currentNode = document.getElementById(i + '-' + j);
 			currentNode.innerText = this.table[i][j];
 		}
 	}
-	// this.removeOnes();
-	// this.drawCurrentShape();
 };
 
 Table.prototype.insertShape = function() {
@@ -132,8 +130,8 @@ Table.prototype.insertShape = function() {
 
 	//Select it randomly
 	var r = Math.floor(Math.random()*4);
-	// this.currentShape = new shapes[r]();
-	this.currentShape = new Line();
+	this.currentShape = new shapes[r]();
+	// this.currentShape = new Line();
 	this.drawCurrentShape();
 };
 
