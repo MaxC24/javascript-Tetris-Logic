@@ -20,7 +20,7 @@ window.addEventListener('load', function(){
 		if(!newGame.pause && !newGame.over && (now+speed) <= new Date().getTime()) {
 			newGame.moveShape();
 			newGame.updateGameDomTable();
-			speed -= 1;
+			if (speed > 150) speed -= 1;
 			now = new Date().getTime();
 		}
 		newGame.updateGameDomTable();
@@ -97,8 +97,6 @@ Game.prototype.createDomTable = function() {
 		for(var j = 0; j < 10; j++) {
 			var currentData = document.createElement('td');
 			currentData.setAttribute('id', i+"-"+j);
-			var text = document.createTextNode('0');
-			currentData.appendChild(text);
 			currentRow.appendChild(currentData);
 		}
 		table.appendChild(currentRow);
@@ -119,7 +117,10 @@ Table.prototype.updateDomTable = function(domTable) {
 	for(var i = 4; i < 22; i++) {
 		for(var j = 0; j < 10; j++){
 			var currentNode = document.getElementById(i + '-' + j);
-			currentNode.innerText = this.table[i][j];
+			//set Attribute for colors
+			if(this.table[i][j] === '1') currentNode.setAttribute('class', 'red');
+			else if(this.table[i][j] === '0') currentNode.setAttribute('class', 'lg');
+			else if(this.table[i][j] === 'x') currentNode.setAttribute('class', 'grey'); 
 		}
 	}
 };
