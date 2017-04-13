@@ -36,7 +36,7 @@ window.addEventListener('load', function(){
 
 		//Shape moving controls
 		var shape = newGame.gameTable.currentShape;
-		if(shape){
+		if(shape && !newGame.over && !newGame.pause){
 			if(e.key === "ArrowLeft" && newGame.gameTable.isThereSpaceLeft()) shape.moveLeft();
 			if(e.key === "ArrowRight" && newGame.gameTable.isThereSpaceRight()) shape.moveRight();
 			if(e.key === "ArrowDown" && newGame.gameTable.isThereSpaceDown()) shape.move();
@@ -73,6 +73,8 @@ Game.prototype.updateGameDomTable = function() {
 			this.gameTable.updateDomTable(this.domTable);
 		} else {
 			this.gameTable.freezeShape();
+			this.over = this.gameTable.checkGameOver();
+			console.log(this.over);
 			this.gameTable.checkWinAndClean();
 			this.gameTable.updateDomTable(this.domTable);
 		}
@@ -202,6 +204,13 @@ Table.prototype.checkWinAndClean = function() {
 			this.table.unshift(['0','0','0','0','0','0','0','0','0','0']);
 		}
 	}
+};
+
+Table.prototype.checkGameOver = function() {
+	for(var i = 0; i< 4; i++){
+		if (this.table[i].indexOf('x') > -1) return true;
+	}
+	return false;
 };
 
 
