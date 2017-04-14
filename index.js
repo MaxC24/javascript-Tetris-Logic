@@ -128,10 +128,10 @@ Table.prototype.updateDomTable = function(domTable) {
 Table.prototype.insertShape = function() {
 
 	//create an array with all the shape constructors
-	var shapes = [Square, Line, Elle, Dot];
+	var shapes = [Square, Line, Elle, Dot, Triangle];
 
 	//Select it randomly
-	var r = Math.floor(Math.random()*4);
+	var r = Math.floor(Math.random()*5);
 	this.currentShape = new shapes[r]();
 	// this.currentShape = new Line();
 	this.drawCurrentShape();
@@ -292,7 +292,7 @@ Line.prototype = Object.create(Shape.prototype);
 Line.prototype.constructor = Line;
 
 
-
+//REFACTOR THIS:
 Line.prototype.rotate = function() {
 	//coordinates definition:
 	var y, x, newYCoords, newXCoords;
@@ -444,15 +444,18 @@ Elle.prototype.rotate = function() {
 };
 
 
-// function Triangle() {
-// 	Shape.call(this, 'triangle', 7);
-// 	//Triangle beginning coordinates
-// 	this.coords = [[3, this.index+1], [4, this.index], [4, this.index+1],[4, this.index+2]];
-// 	this.position = 'down';
-// }
+function Triangle() {
+	Shape.call(this, 'triangle', 7);
+	//Triangle beginning coordinates
+	this.coords = [[3, this.index+1], [4, this.index], [4, this.index+1],[4, this.index+2]];
+	this.position = 'down';
+}
 
-// Triangle.prototype.rotate = function() {
+Triangle.prototype = Object.create(Shape.prototype);
+Triangle.prototype.constructor = Triangle;
 
-// };
+Triangle.prototype.rotate = function() {
+
+};
 
 
