@@ -434,7 +434,8 @@ Elle.prototype.rotate = function() {
 		case 'down':
 			x = this.coords[1][0];
 			y = this.coords[1][1];
-			this.coords = [[x-2, y],[x-1, y],[x, y],[x, y-1]];
+			this.coords = [[x-2, y],[x-1, y],[x, y],[x, y+1]];
+			this.position = 'left';
 			break;
 		default:
 			this.coords = this.coords;
@@ -443,13 +444,15 @@ Elle.prototype.rotate = function() {
 };
 
 
-function Triangle() {
-	Shape.call(this, 'triangle', 7);
-	//Triangle beginning coordinates
-	this.coords = [[3, this.index+1], [4, this.index], [4, this.index+1],[4, this.index+2]];
-	this.position = 'down';
-}
+// function Triangle() {
+// 	Shape.call(this, 'triangle', 7);
+// 	//Triangle beginning coordinates
+// 	this.coords = [[3, this.index+1], [4, this.index], [4, this.index+1],[4, this.index+2]];
+// 	this.position = 'down';
+// }
 
-Triangle.prototype.rotate = function() {
+// Triangle.prototype.rotate = function() {
 
-};
+// };
+
+
