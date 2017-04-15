@@ -132,7 +132,7 @@ Table.prototype.insertShape = function() {
 
 	//Select it randomly
 	var r = Math.floor(Math.random()*5);
-	this.currentShape = new shapes[r]();
+	this.currentShape = new Triangle();
 	// this.currentShape = new Line();
 	this.drawCurrentShape();
 };
@@ -389,7 +389,7 @@ Elle.prototype.rotate = function() {
 function Triangle() {
 	Shape.call(this, 'triangle', 7);
 	//Triangle beginning coordinates
-	this.coords = [[1, this.index+1], [2, this.index], [2, this.index+1],[2, this.index+2]];
+	this.coords = [[2, this.index+1], [3, this.index], [3, this.index+1],[3, this.index+2]];
 	this.position = 'up';
 }
 
@@ -405,42 +405,38 @@ Triangle.prototype.constructor = Triangle;
 //  |     |     |     |  //   |     |  x  |     |   //   |     |  x  |     |   //   |     |  x  |     | 
 
 Triangle.prototype.rotate = function() {
-	var x = this.coords[2][0];
-	var y = this.coords[2][1];
+	var x, y;
 	switch(this.position) {
 		case 'up':
-			this.coords.splice(1, 1);
-			this.coords.push([[x+1], y]);
+			x = this.coords[2][0];
+			y = this.coords[2][1];
+			this.coords = [[x-1, y],[x, y], [x, y+1], [x+1, y]];
 			this.position = 'right';
 			break;
 		case 'right':
-			if(y < 1) {
-				this.coords = this.coords.map(function(c){
-					return [c[0], c[1]+1];
-				});
-			}
-			this.coords.shift();
-			this.coords.unshift([x-1, y-1]);
+			x = this.coords[1][0];
+			y = this.coords[1][1];
+			if(y < 1) y = 1;
+		    this.coords = [[x, y-1],[x, y], [x, y+1], [x+1, y]];
 			this.position = 'down';
 			break;
 		case 'down':
-			this.coords.splice(2,1);
-			this.coords.unshift([x-1, y]);
-			this.position ='left';
+			x = this.coords[1][0];
+			y = this.coords[1][1];
+			this.coords = [[x-1, y],[x, y-1], [x, y], [x+1, y]];
+			this.position= 'left';
 			break;
 		case 'left':
-			if(y > 8) {
-				this.coords = this.coords.map(function(c){
-					return [c[0] , y-1];
-				});
-			}
-			this.coords.pop();
-			this.coords.push([x-1, y+1]);
+			x = this.coords[2][0];
+			y = this.coords[2][1];
+			if(y > 8) y = 8;
+			this.coords = [[x-1, y],[x, y-1], [x, y], [x, y+1]];
 			this.position = 'up';
-			break;
+			break ;
 		default:
 			this.coords = this.coords;
-			break;
+			break;	
+
 	}
 };
 
