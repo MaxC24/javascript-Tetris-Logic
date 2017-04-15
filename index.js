@@ -132,7 +132,7 @@ Table.prototype.insertShape = function() {
 
 	//Select it randomly
 	var r = Math.floor(Math.random()*5);
-	this.currentShape = new Triangle();
+	this.currentShape = new shapes[r]();
 	// this.currentShape = new Line();
 	this.drawCurrentShape();
 };

@@ -1,5 +1,12 @@
+#game {
+	position: absolute;
+	left: 50%;
+	margin-left: -22vh;
+}
+
 table {
     border-collapse: collapse;
+	margin-top: 3em;
 }
 
 table, th, td {
@@ -7,8 +14,8 @@ table, th, td {
 }
 
 td {
-	width: 1em;
-	height: 1em;
+	width: 4vh;
+	height: 4vh;
 }
 
 .red {
