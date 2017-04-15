@@ -291,21 +291,22 @@ function Line() {
 Line.prototype = Object.create(Shape.prototype);
 Line.prototype.constructor = Line;
 
+//Rotate function for Line Shape:
+//The positions can be: up, right, down, left;
+//this is the default RIGHT position and pivotal point(*):
+// Vertical:            // Horizontal:
+// |    |    |  X  |    |  // |    |    |     |    |
+//
+// |    |    |  *  |    |  // | x  | x  |  *  | x  |
+//           
+// |    |    |  X  |    |  // |    |    |     |    |
+//
+// |    |    |  X  |    |  // |    |    |     |    |
+//Rotate line from right to down position:
+
 Line.prototype.rotate = function() {
-	var y, x, newYCoords, newXCoords;
 	switch(this.position){
 		case 'vertical':
-			//Rotate function for Line Shape:
-			//The positions can be: up, right, down, left;
-			//this is the default RIGHT position and pivotal point(*):
-			// |    |    |  X  |    |
-		    //
-			// |    |    |  *  |    |
-			//           
-			// |    |    |  X  |    |
-		    //
-			// |    |    |  X  |    |
-			//Rotate line from right to down position:
 			x = this.coords[1][0];
 			y = this.coords[1][1];
 			if(y < 2) y = 2;
@@ -317,13 +318,6 @@ Line.prototype.rotate = function() {
 			this.position = 'horizontal';
 			break;
 		case 'horizontal':
-			// |    |    |     |    |
-		    //
-			// | x  | x  |  *  | x  |
-			//           
-			// |    |    |     |    |
-		    //
-			// |    |    |     |    |
 			x = this.coords[2][0];
 			y = this.coords[2][1];
 			this.coords = [[x-1, y],[x, y],[x+1, y],[x+2, y]];
@@ -395,15 +389,58 @@ Elle.prototype.rotate = function() {
 function Triangle() {
 	Shape.call(this, 'triangle', 7);
 	//Triangle beginning coordinates
-	this.coords = [[3, this.index+1], [4, this.index], [4, this.index+1],[4, this.index+2]];
-	this.position = 'down';
+	this.coords = [[1, this.index+1], [2, this.index], [2, this.index+1],[2, this.index+2]];
+	this.position = 'up';
 }
 
 Triangle.prototype = Object.create(Shape.prototype);
 Triangle.prototype.constructor = Triangle;
 
-Triangle.prototype.rotate = function() {
+// TRIANGLE ROTATION
+//   up                      right                         down                      left
+//  |     |  x  |     |  //   |     |  x  |     |   //   |     |     |     |   //   |     |  x  |     | 
+//
+//  |  x  |  *  |  x  |  //   |     |  *  |  x  |   //   |  x  |  *  |  x  |   //   |  x  |  *  |     | 
+//             
+//  |     |     |     |  //   |     |  x  |     |   //   |     |  x  |     |   //   |     |  x  |     | 
 
+Triangle.prototype.rotate = function() {
+	var x = this.coords[2][0];
+	var y = this.coords[2][1];
+	switch(this.position) {
+		case 'up':
+			this.coords.splice(1, 1);
+			this.coords.push([[x+1], y]);
+			this.position = 'right';
+			break;
+		case 'right':
+			if(y < 1) {
+				this.coords = this.coords.map(function(c){
+					return [c[0], c[1]+1];
+				});
+			}
+			this.coords.shift();
+			this.coords.unshift([x-1, y-1]);
+			this.position = 'down';
+			break;
+		case 'down':
+			this.coords.splice(2,1);
+			this.coords.unshift([x-1, y]);
+			this.position ='left';
+			break;
+		case 'left':
+			if(y > 8) {
+				this.coords = this.coords.map(function(c){
+					return [c[0] , y-1];
+				});
+			}
+			this.coords.pop();
+			this.coords.push([x-1, y+1]);
+			break;
+		default:
+			this.coords = this.coords;
+			break;
+	}
 };
 
 
