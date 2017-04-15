@@ -305,6 +305,7 @@ Line.prototype.constructor = Line;
 //Rotate line from right to down position:
 
 Line.prototype.rotate = function() {
+	var x, y, newYCoords;
 	switch(this.position){
 		case 'vertical':
 			x = this.coords[1][0];
@@ -326,7 +327,6 @@ Line.prototype.rotate = function() {
 		default:
 			this.coords = this.coords;
 			break;
-
 	}
 };
 
@@ -436,6 +436,7 @@ Triangle.prototype.rotate = function() {
 			}
 			this.coords.pop();
 			this.coords.push([x-1, y+1]);
+			this.position = 'up';
 			break;
 		default:
 			this.coords = this.coords;
