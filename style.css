@@ -29,3 +29,11 @@ td {
 .grey {
 	background-color: grey;
 }
+
+#controls {
+	font-family: sans-serif;
+	font-size: 12px;
+	position: absolute;
+	left: 5%;
+	top:5%;
+}
