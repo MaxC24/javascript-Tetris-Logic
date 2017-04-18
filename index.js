@@ -369,7 +369,7 @@ Elle.prototype.rotate = function() {
 		case 'right':
 			x = this.coords[3][0];
 			y = this.coords[3][1];
-			if(x < 2) x = 2;
+			if(y < 2) y = 2;
 			this.coords = [[x-1, y],[x, y-2],[x, y-1],[x, y]];
 			this.position = 'down';
 			break;
